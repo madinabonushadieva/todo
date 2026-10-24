@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bubbles">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+</div>
+<button type="button" id="themeToggle" class="theme-toggle">🌙</button>
+
+<div class="app-container">
+    <section class="stats-container">
+        <div class="stats-details">
+            <h1 class="app-title">Todo App</h1>
+            <p class="app-subtitle" id="appSubtitle">Keep it up!</p>
+
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-bar__fill" id="progress"></div>
+            </div>
+        </div>
+        <div class="stats-circle" id="statsCircle">
+            <span id="numbers">0 / 0</span>
+        </div>
+    </section>
+
+    <form class="task-form" id="taskForm">
+        <input
+                type="text"
+                class="task-input"
+                id="taskInput"
+                placeholder="Write your task"
+                autocomplete="off"
+        >
+
+        <select class="priority-select" id="prioritySelect">
+            <option value="normal">Oddiy</option>
+            <option value="high">Muhim</option>
+        </select>
+
+        <button type="submit" class="add-btn" id="addBtn">+</button>
+    </form>
+
+    <div class="filter-buttons" id="filterButtons">
+        <button type="button" class="filter-btn active" data-filter="all">All (0)</button>
+        <button type="button" class="filter-btn" data-filter="active">Active (0)</button>
+        <button type="button" class="filter-btn" data-filter="completed">Completed (0)</button>
+    </div>
+    <button type="button" id="clearCompletedBtn" class="clear-btn">Bajarilganlarni tozalash</button>
+
+    <ul class="task-list" id="taskList"></ul>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

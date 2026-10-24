@@ -1,0 +1,321 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    color: #fff;
+    font-family: "Segoe UI", Arial, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+
+    /*orqa fon 4 ta rang aralashgan gradient, sekin harakatlanishi:*/
+    background: linear-gradient(-45deg, #050022, #1b0040, #00043a, #250046);
+    background-size: 400% 400%;
+    animation: gradientFlow 18s ease infinite;
+}
+/*rang doim harakatlanib turishi uchun background-position vaqt bilan o'zgaradi */
+@keyframes gradientFlow {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/*kunduzgi rejim ranglari */
+body.light-mode {
+    background: linear-gradient(-45deg, #eef0ff, #dfe3ff, #f5f5ff, #e8e8ff);
+    color: #16173a;
+}
+body.light-mode .stats-container,
+body.light-mode .task-item,
+body.light-mode .task-input,
+body.light-mode .priority-select {
+    background: rgba(255,255,255,0.75);
+    border-color: #828dff;
+    color: #16173a;
+}
+body.light-mode .app-subtitle {
+    color: #4b4fb3;
+}
+body.light-mode .filter-btn {
+    color: #4b4fb3;
+}
+body.light-mode .task-item__date {
+    color: #6a6da8;
+}
+
+/*Suv pufakchalari effekti*/
+.bubbles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bubbles span {
+    position: absolute;
+    bottom: -150px;
+    display: block;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(36,254,238,0.08) 70%);
+    animation: rise linear infinite;
+}
+/*pufakcha pastdan tepaga suzib chiqishi uchun translateY animatsiyasi */
+@keyframes rise {
+    0%   { transform: translateY(0); opacity: 0; }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-115vh); opacity: 0; }
+}
+
+.bubbles span:nth-child(1) { left: 5%;  width: 22px; height: 22px; animation-duration: 12s; animation-delay: 0s; }
+.bubbles span:nth-child(2) { left: 15%; width: 40px; height: 40px; animation-duration: 16s; animation-delay: 2s; }
+.bubbles span:nth-child(3) { left: 28%; width: 14px; height: 14px; animation-duration: 9s;  animation-delay: 1s; }
+.bubbles span:nth-child(4) { left: 40%; width: 30px; height: 30px; animation-duration: 14s; animation-delay: 4s; }
+.bubbles span:nth-child(5) { left: 52%; width: 18px; height: 18px; animation-duration: 11s; animation-delay: 3s; }
+.bubbles span:nth-child(6) { left: 63%; width: 45px; height: 45px; animation-duration: 19s; animation-delay: 0.5s; }
+.bubbles span:nth-child(7) { left: 74%; width: 20px; height: 20px; animation-duration: 10s; animation-delay: 5s; }
+.bubbles span:nth-child(8) { left: 83%; width: 34px; height: 34px; animation-duration: 15s; animation-delay: 2.5s; }
+.bubbles span:nth-child(9) { left: 91%; width: 16px; height: 16px; animation-duration: 13s; animation-delay: 6s; }
+.bubbles span:nth-child(10){ left: 48%; width: 24px; height: 24px; animation-duration: 17s; animation-delay: 7s; }
+
+/*rejim almashtirish tugmasi */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background-color: #828dff;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.app-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 100px 20px 60px 20px;
+    max-width: 520px;
+}
+.stats-container {
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid #828dff;
+    background: rgba(16, 18, 58, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    width: 100%;
+}
+
+.stats-details {
+    width: 100%;
+}
+
+.app-title {
+    font-size: 28px;
+}
+
+.app-subtitle {
+    color: #c7c9ff;
+    margin-top: 4px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #171c48;
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.progress-bar__fill {
+    width: 0%;
+    height: 100%;
+    background-color: #24feee;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.stats-circle {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #828dff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+.task-form {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.task-input {
+    flex: 1;
+    padding: 16px 20px;
+    border-radius: 14px;
+    border: 2px solid #828dff;
+    background: rgba(16, 18, 58, 0.55);
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+}
+
+.task-input::placeholder {
+    color: #9ea1d6;
+}
+
+/* muhimlik darajasi select */
+.priority-select {
+    padding: 0 10px;
+    border-radius: 14px;
+    border: 2px solid #828dff;
+    background: rgba(16, 18, 58, 0.55);
+    color: #fff;
+    font-size: 14px;
+}
+
+.add-btn {
+    width: 54px;
+    height: 54px;
+    border: none;
+    border-radius: 50%;
+    background-color: #828dff;
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* input bo'sh bo'lganda tugma kulrang bo'lishi */
+.add-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.filter-btn {
+    padding: 8px 18px;
+    border: 1px solid #828dff;
+    border-radius: 20px;
+    background: transparent;
+    color: #c7c9ff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.filter-btn.active {
+    background-color: #828dff;
+    color: #fff;
+}
+
+/* bajarilganlarni tozalash tugmasi */
+.clear-btn {
+    margin-top: 14px;
+    padding: 8px 16px;
+    border: 1px solid rgba(255,95,60,0.6);
+    border-radius: 20px;
+    background: transparent;
+    color: #ff8f70;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.task-list {
+    list-style: none;
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: rgba(16, 18, 58, 0.55);
+    border: 1px solid rgba(130,141,255,0.25);
+}
+
+/* muhim task chap chizig'i */
+.task-item.priority-high {
+    border-left: 4px solid #ff5f5f;
+}
+
+.task-item__label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.task-item__checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.task-item__text {
+    font-size: 15px;
+    word-break: break-word;
+}
+
+.task-item__date {
+    font-size: 12px;
+    color: #9ea1d6;
+    margin-left: 8px;
+}
+
+.task-item.completed .task-item__text {
+    text-decoration: line-through;
+    color: #24feee;
+}
+
+.task-item__actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.task-item__edit,
+.task-item__delete {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.task-item__edit img,
+.task-item__delete img {
+    width: 16px;
+    height: 16px;
+}
